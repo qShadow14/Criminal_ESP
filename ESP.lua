@@ -22,11 +22,48 @@ local active = {}
 local lootMarks = {}
 
 local LOOT_NAMES = {
-    ["CashBag"] = true, ["GoldBar"] = true, ["DiamondNecklace"] = true, ["Handbag"] = true,
-    ["SeizedCash"] = true, ["TaserItem"] = true, ["CashBox"] = true, ["PoliceRadio"] = true,
-    ["PoliceBadge"] = true, ["Ring"] = true, ["RingBox"] = true, ["Wallet"] = true,
-    ["Watch"] = true, ["Necklace"] = true, ["Valuables"] = true, ["WaterLilies"] = true,
-    ["Masterpiece"] = true, ["FabergeEgg"] = true, ["Item"] = true
+    ["CashBag"] = true,
+    ["GoldBar"] = true,
+    ["DiamondNecklace"] = true,
+    ["Handbag"] = true,
+    ["SeizedCash"] = true,
+    ["CashBox"] = true,
+    ["RingBox"] = true,
+    ["Necklace"] = true,
+    ["Valuables"] = true,
+    ["WaterLilies"] = true,
+    ["Masterpiece"] = true,
+    ["FabergeEgg"] = true,
+    ["DesertMap"] = true,
+    ["SeizedCash"] = true, 
+    ["EvidenceJewels"] = true,
+    ["ArmoredTruckKey"] = true,
+    ["LuxuryWatch"] = true,
+    ["LimitedSneakersGreen"] = true,
+    ["GoldDustPouch"] = true,
+    ["Cash"] = true,
+    ["GamingPC"] = true,
+    ["GoldCoins"] = true,
+    ["GiftCard500"] = true,
+    ["CreditCard"] = true,
+    ["CashBrick"] = true,
+    ["JeweledSkull"] = true,
+    ["DiamondTiara"] = true,
+    ["DiamondGrillz"] = true,
+    ["DiamondRing"] = true,
+    ["GoldMask"] = true,
+    ["WatchCase"] = true,
+    ["HelicopterKeys"] = true,
+    ["HorseThieves"] = true,
+    ["SierraNevada"] = true,
+    ["GoldNugget"] = true,
+    ["CarEngine"] = true,
+    ["LandDeed"] = true,
+    ["TurquoiseRing"] = true,
+    ["GoldIngots"] = true,
+    ["ElectronicsCrate"] = true,
+    ["SilverIngot"] = true,
+    ["Item"] = true
 }
 
 -- Cleanup of previous runs
@@ -451,6 +488,12 @@ makeToggle("Guard ESP", "Guard")
 makeToggle("Civilian ESP", "Civilian")
 makeToggle("Armored Truck ESP", "ArmoredTruck")
 makeToggle("Tracers", "Tracers")
+
+-- Start in the center of the screen
+task.defer(function()
+    RunService.RenderStepped:Wait() -- wait a frame so the panel's auto-size is calculated
+    MainFrame.Position = UDim2.new(0.5, -MainFrame.AbsoluteSize.X / 2, 0.5, -MainFrame.AbsoluteSize.Y / 2)
+end)
 
 -- Minimize
 local isMinimized = false
