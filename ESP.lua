@@ -51,6 +51,7 @@ tracerGui.ResetOnSpawn = false
 tracerGui.IgnoreGuiInset = true
 tracerGui.Parent = pg
 local tracerConn = nil
+local mouseConn = nil
 
 -- ========================================================
 -- NPC ESP (Police / Guard / Civilian / Armored Truck)
@@ -188,6 +189,8 @@ getgenv().CrimHubStop = function()
     running = false
     pcall(clearAll)
     pcall(function() if tracerConn then tracerConn:Disconnect() end end)
+    pcall(function() if mouseConn then mouseConn:Disconnect() end end)
+    pcall(function() RunService:UnbindFromRenderStep("MouseUnlocker") end)
     pcall(function() tracerGui:Destroy() end)
     pcall(function() sg:Destroy() end)
 end
@@ -455,4 +458,16 @@ MinimizeBtn.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
     Content.Visible = not isMinimized
     MinimizeBtn.Text = isMinimized and "+" or "—"
+end)
+
+-- ========================================================
+-- MOUSE UNLOCK (press V to free / re-lock the mouse)
+-- ========================================================
+local unlocked = false
+RunService:BindToRenderStep("MouseUnlocker", Enum.RenderPriority.Camera.Value + 1, function()
+    if unlocked then UIS.MouseBehavior = Enum.MouseBehavior.Default end
+end)
+mouseConn = UIS.InputBegan:Connect(function(input, gpe)
+    if gpe then return end
+    if input.KeyCode == Enum.KeyCode.V then unlocked = not unlocked end
 end)
